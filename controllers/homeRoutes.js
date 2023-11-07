@@ -18,9 +18,9 @@ router.get('/', async (req, res) => {
     const posts = postData.map((post) => post.get({ plain: true }));
 
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
+    res.render('homepage', {
       posts,
-      logged_in: req.session.logged_in 
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -40,7 +40,7 @@ router.get('/post/:id', async (req, res) => {
     // find all comments with parant post_id of this post
     const commentData = await Comment.findAll({
       where: {
-        post_id: req.params.id
+        post_id: req.params.id,
       },
       include: [
         {
@@ -56,7 +56,7 @@ router.get('/post/:id', async (req, res) => {
     res.render('post', {
       ...post,
       comments,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -73,8 +73,8 @@ router.get('/comment/:id', async (req, res) => {
         },
         {
           model: Post,
-          attributes: ['title']
-        }
+          attributes: ['id', 'title'],
+        },
       ],
     });
 
@@ -82,7 +82,7 @@ router.get('/comment/:id', async (req, res) => {
 
     res.render('comment', {
       ...comment,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -102,7 +102,7 @@ router.get('/profile', withAuth, async (req, res) => {
 
     res.render('profile', {
       ...user,
-      logged_in: true
+      logged_in: true,
     });
   } catch (err) {
     res.status(500).json(err);

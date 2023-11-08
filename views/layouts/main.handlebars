@@ -12,9 +12,11 @@
     <div class='flex-column justify-space-around'>
       <header class='display-flex justify-space-between align-center p-2'>
         <nav>
+          <a href='/'>homepage</a>
+          |
           <!-- Conditionally render login or logout links -->
           {{#if logged_in}}
-            <a href='/profile'>profile</a>
+            <a href='/profile'>dashboard</a>
             |
             <button class='no-button' id='logout'>logout</button>
           {{else}}
